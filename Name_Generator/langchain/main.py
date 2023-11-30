@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain_helper import generate_name
+from langchain.langchain_helper import generate_name
 
 st.title("Pets Name Generator")
 
