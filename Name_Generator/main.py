@@ -24,4 +24,4 @@ if animal_type == "Parrot":
 # Use the user selection of type and color
 if pet_color:
   response = generate_name(animal_type, pet_color)
-  st.text(response)
+  st.text(response['pet_names'])
