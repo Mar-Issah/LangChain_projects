@@ -1,38 +1,34 @@
 from langchain.document_loaders import YoutubeLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.llms import OpenAI
+from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-
+from langchain.vectorstores import FAISS
 
 from dotenv import load_dotenv
 load_dotenv()
 
-def generate_name(animal_type, animal_color):
-  # For it to be more accurate you can give a temperature as 0.4 or lesser.
-  llm = OpenAI(temperature=0.5)
+#initialzie the openaiembeddings
+embeddings_model = OpenAIEmbeddings()
 
-  prompt_template = PromptTemplate(
-    input_variables=['animal_type', 'animal_color'],
-    template='I have a {animal_type} pet. It is {animal_color}. Suggest me five cool names'
-  )
+# video to create vector db from
+video_url = 'https://www.youtube.com/watch?v=-8Yu2GiuSns'
 
-  name_chain = LLMChain(llm = llm, prompt = prompt_template, output_key= 'pet_names')
-  response = name_chain({'animal_type': animal_type, 'animal_color':animal_color})
+def create_vector_db(video_url : str) -> FAISS:
+  # first load the video using YoutubeLoader
+  loader = YoutubeLoader.from_youtube_url(video_url)
+  transcript = loader.load()
 
-  # response will be the output of the llmchain
-  return response
+  # split transcript into chunk
+  text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=100)
+  docs = text_splitter.split_documents(transcript)
 
-def langchain_agent():
-  llm = OpenAI(temperature=0.5)
+  # save in our vector store
+  db = FAISS.from_documents(docs, OpenAIEmbeddings())
+  return db
 
-  #  Initializing the agent
-  tools = load_tools(['wikipedia', 'llm-math'],llm=llm)
-  agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
-
-  #Running the agent
-  result = agent.run('What is the average age of a dog? Multiply the age by 3')
-  print(result)
 
 if __name__ == "__main__":
-  # print(generate_name("cow",'brown'))
-  langchain_agent()
+  print(create_vector_db(video_url))
+
