@@ -1,6 +1,10 @@
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+# to use the langchain agents import below the ff
+from langchain.agents import initialize_agent
+from langchain.agents import AgentType
+from langchain.agents import load_tools
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -22,5 +26,17 @@ def generate_name(animal_type, animal_color):
   # response will be the output of the llmchain
   return response
 
+def langchain_agent():
+  llm = OpenAI(temperature=0.5)
+
+  #  Initializing the agent
+  tools = load_tools(['wikipedia', 'llm-math'],llm=llm)
+  agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+
+  #Running the agent
+  result = agent.run('What is the average age of a dog? Multiply the age by 3')
+  print(result)
+
 if __name__ == "__main__":
-  print(generate_name("cow",'brown'))
+  # print(generate_name("cow",'brown'))
+  langchain_agent()
