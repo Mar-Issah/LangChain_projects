@@ -1,4 +1,4 @@
-# LangChain_projects
+# LangChain projects
 
 LLMs | LangChain | Python | Streamlit
 
