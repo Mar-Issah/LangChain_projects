@@ -11,7 +11,7 @@ import pinecone	# pip install pinecone-client
 # we are using pinecone vector database https://www.pinecone.io/
 
 pinecone.init(
-    api_key="280c8c37-efa2-4b2a-a372-a08fe61f698a",
+    api_key="your_keys_here",
     environment="gcp-starter",
 )
 

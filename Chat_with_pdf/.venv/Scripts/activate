@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\MARSIYA\PROGRAMMING\PORTFORLIO\ALL NOTES\AI\LANGCHAIN\LangChain_projects\Document_Assistant\.venv"
+VIRTUAL_ENV="C:\MARSIYA\PROGRAMMING\PORTFORLIO\ALL NOTES\AI\LANGCHAIN\LangChain_projects\Chat_with_pdf\.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\MARSIYA\PROGRAMMING\PORTFORLIO\ALL NOTES\AI\LANGCHAIN\LangChain_projects\Document_Assistant\.venv
+set VIRTUAL_ENV=C:\MARSIYA\PROGRAMMING\PORTFORLIO\ALL NOTES\AI\LANGCHAIN\LangChain_projects\Chat_with_pdf\.venv
 
 if not defined PROMPT set PROMPT=$P$G
 
